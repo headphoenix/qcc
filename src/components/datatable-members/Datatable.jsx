@@ -2,10 +2,13 @@ import "./datatable.scss";
 import { DataGrid } from "@mui/x-data-grid";
 import { memberColumns, userRows } from "../../datatablesource";
 import { Link } from "react-router-dom";
-import { useState } from "react";
+import { useState, useContext } from "react";
+import { UserContext } from "../../context/user.context";
+import { getMembersDocuments } from '../../utils/firebase/firebase.utils'
 
 const Datatable = () => {
-  const [data, setData] = useState(userRows);
+  const { membersMap } = useContext(UserContext);
+  const [data, setData] = useState(Object.keys(membersMap))
 
   const handleDelete = (id) => {
     setData(data.filter((item) => item.id !== id));
@@ -41,14 +44,19 @@ const Datatable = () => {
           Add New Member
         </Link>
       </div>
-      <DataGrid
+      {Object.keys(membersMap).map((title) => {
+       return (
+       <DataGrid
+        key={title.id}
         className="datagrid"
-        rows={data}
-        columns={memberColumns.concat(actionColumn)}
+        rows={title}
+        columns={membersMap[title].concat(actionColumn)}
         pageSize={9}
         rowsPerPageOptions={[9]}
         checkboxSelection
       />
+       )
+      })}
     </div>
   );
 };

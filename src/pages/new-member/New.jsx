@@ -2,10 +2,99 @@ import "./new.scss";
 import Sidebar from "../../components/sidebar/Sidebar";
 import Navbar from "../../components/navbar/Navbar";
 import DriveFolderUploadOutlinedIcon from "@mui/icons-material/DriveFolderUploadOutlined";
-import { useState } from "react";
+import { useState, useContext } from "react";
+import { UserContext } from "../../context/user.context";
+import { db } from "../../utils/firebase/firebase.utils";
+import { collection, addDoc, getDoc, admin } from "@firebase/firestore";
+
+
+const defaultMemberFields = {
+  memberName: '',
+  memberNumber: '',
+  memberCampus: '',
+  hostel: '',
+  roomNumber: '',
+};
+
 
 const NewMember = ({ inputs, title }) => {
   const [file, setFile] = useState("");
+  const [member, setMember] = useState(defaultMemberFields);
+
+
+
+  const {memberName,
+    memberNumber,
+    memberCampus,
+    hostel,
+    roomNumber,
+    } = member;
+
+    const memberInputs = [
+      {
+        id: 1,
+        label: "Full name",
+        type: "text",
+        name:"memberName",
+        value: memberName,
+      },
+      {
+        id: 2,
+        label: "Phone",
+        type: "text",
+        name:"memberNumber",
+        value: memberNumber,
+      },
+      {
+        id: 3,
+        label: "Campus",
+        type: "text",
+        name:"memberCampus",
+        value: memberCampus,
+      },
+      {
+        id: 4,
+        label: "Hostel",
+        type: "text",
+        name:"hostel",
+        value: hostel,
+      },
+      {
+        id: 4,
+        label: "Room Number",
+        type: "text",
+        name:"roomNumber",
+        value: roomNumber,
+      },
+    ];
+
+const usersCollectionRef = collection(db, "member");
+
+const handleChange = (event) => {
+const { name, value } = event.target;
+
+setMember({ ...member, [name]: value, });
+};
+
+const resetMemberFields = () => {
+setMember(defaultMemberFields);
+};
+
+const memberDetails = {
+  memberName,
+  memberNumber,
+  memberCampus,
+  hostel,
+  roomNumber,
+}
+try {
+const docRef = addDoc(collection(db, "member"), memberDetails);
+console.log("Document written with ID: ", docRef.id);
+
+} catch (e) {
+console.error("Error adding document: ", e);
+}
+
 
   return (
     <div className="new">
@@ -28,19 +117,7 @@ const NewMember = ({ inputs, title }) => {
           </div>
           <div className="right">
             <form>
-              <div className="formInput">
-                <label htmlFor="file">
-                  Image: <DriveFolderUploadOutlinedIcon className="icon" />
-                </label>
-                <input
-                  type="file"
-                  id="file"
-                  onChange={(e) => setFile(e.target.files[0])}
-                  style={{ display: "none" }}
-                />
-              </div>
-
-              {inputs.map((input) => (
+              {memberInputs.map((input) => (
                 <div className="formInput" key={input.id}>
                   <label>{input.label}</label>
                   <input type={input.type} placeholder={input.placeholder} />

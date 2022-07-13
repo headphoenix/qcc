@@ -1,30 +1,3 @@
-export const userInputs = [
-    {
-      id: 1,
-      label: "Name and surname",
-      type: "text",
-      placeholder: "John Doe",
-    },
-    {
-      id: 2,
-      label: "Phone",
-      type: "text",
-      placeholder: "+1 234 567 89",
-    },
-    {
-      id: 3,
-      label: "Campus",
-      type: "text",
-      placeholder: "University of Ghana",
-    },
-    {
-      id: 4,
-      label: " Assigned Hostel",
-      type: "text",
-      placeholder: "Evandy Hostel",
-    },
-  ];
-  
   export const productInputs = [
     {
       id: 1,

@@ -64,6 +64,12 @@ const Sidebar = () => {
             <span>Fellowship</span>
           </li>
           </Link>
+          <Link to='/mid-week' style={{ textDecoration: "none" }} >
+          <li>
+            <LocalShippingIcon className="icon" />
+            <span>Mid Week</span>
+          </li>
+          </Link>
           <p className="title">USEFUL</p>
           <li>
             <InsertChartIcon className="icon" />

@@ -4,8 +4,8 @@ import ListSheperds from "./pages/list/ListSheperds";
 import Single from "./pages/single/Single";
 import NewSherperd from "./pages/new-sheperd/New";
 import NewMember from "./pages/new-member/New";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
-import { productInputs, userInputs } from "./formSource";
+import { Routes, Route,BrowserRouter } from "react-router-dom";
+import { productInputs } from "./formSource";
 import "./style/dark.scss";
 import { useContext } from "react";
 import { DarkModeContext } from "./context/darkModeContext";
@@ -19,7 +19,7 @@ function App() {
 
   return (
     <div className={darkMode ? "app dark" : "app"}>
-      <BrowserRouter>
+          <BrowserRouter>
         <Routes>
           <Route path="/">
             <Route index element={<Home />} />
@@ -29,7 +29,7 @@ function App() {
               <Route path=":userId" element={<Single />} />
               <Route
                 path="new-sheperd"
-                element={<NewSherperd inputs={userInputs} />}
+                element={<NewSherperd title='Add New Sherperd' />}
               />
             </Route>
             <Route path="members">
@@ -37,15 +37,15 @@ function App() {
               <Route path=":userId" element={<Single />} />
               <Route
                 path="new-member"
-                element={<NewMember inputs={userInputs} />}
+                element={<NewMember title='Add New Campus'/>}
               />
             </Route>
             <Route path="campus">
               <Route index element={<ListCampuses />} />
-              <Route path=":productId" element={<Single />} />
+              <Route path=":campusId" element={<Single />} />
               <Route
                 path="new-campus"
-                element={<NewCampus inputs={productInputs} title="Add New Product" />}
+                element={<NewCampus title="Add New Campus" />}
               />
             </Route>
             <Route path="saturday">
@@ -58,7 +58,7 @@ function App() {
             </Route>
           </Route>
         </Routes>
-      </BrowserRouter>
+        </BrowserRouter>
     </div>
   );
 }
