@@ -61,11 +61,7 @@ const NewSheperd = ({ title }) => {
 
   const usersCollectionRef = collection(db, "sheperd");
 
-  const handleChange = (event) => {
-    const { name, value } = event.target;
 
-    setSheperd({ ...sheperd, [name]: value, });
-};
 
 const resetSheperdFields = () => {
   setSheperd(defaultSheperdFields);
@@ -77,13 +73,24 @@ const resetSheperdFields = () => {
     sheperdCampus,
     assignedHostel,
 }
-try {
+const handleSubmit = (event) => {
+  event.preventDefault();
+
+  try {
     const docRef = addDoc(collection(db, "sheperd"), sheperdDetails);
     console.log("Document written with ID: ", docRef.id);
 
 } catch (e) {
     console.error("Error adding document: ", e);
 }
+}
+
+const handleChange = (event) => {
+  const { name, value } = event.target;
+
+  setSheperd({ ...sheperd, [name]: value, });
+};
+
 
   return (
     <div className="new">
@@ -104,7 +111,7 @@ try {
                   <input onChange={handleChange} type={input.type} placeholder={input.placeholder} name={input.name} value={input.value}/>
                 </div>
               ))}
-              <button>Send</button>
+              <button onSubmit={handleSubmit}>Send</button>
             </form>
           </div>
         </div>
