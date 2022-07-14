@@ -9,8 +9,9 @@ import { getCategoriesAndDocuments } from '../../utils/firebase/firebase.utils'
 const Datatable = () => {
   const { categoriesMap } = useContext(UserContext);
   const [data, setData] = useState(Object.keys(categoriesMap))
-
-
+  console.log(categoriesMap)
+  console.log(data)
+  console.log(Object.keys(categoriesMap))
   const handleDelete = (id) => {
     setData(data.filter((item) => item.id !== id));
   };
