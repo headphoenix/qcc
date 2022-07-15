@@ -6,8 +6,10 @@ import { useState, useContext } from "react";
 import { UserContext } from "../../context/user.context";
 import { db } from "../../utils/firebase/firebase.utils";
 import { collection, addDoc, getDoc, admin } from "@firebase/firestore";
+import {nanoid} from 'nanoid';
 
 const defaultSheperdFields = {
+  id: nanoid(7),
   sheperdName: "",
   sheperdNumber: "",
   sheperdCampus: "",
@@ -15,10 +17,10 @@ const defaultSheperdFields = {
 };
 
 const NewSheperd = ({ title }) => {
-  const [file, setFile] = useState("");
   const [sheperd, setSheperd] = useState(defaultSheperdFields);
 
-  const {sheperdName,
+  const {id,
+         sheperdName,
          sheperdNumber,
          sheperdCampus,
          assignedHostel,
@@ -67,28 +69,36 @@ const resetSheperdFields = () => {
   setSheperd(defaultSheperdFields);
 };
 
+
+const handleSubmit = (event) => {
+  event.preventDefault();
+  
   const sheperdDetails = {
+    id,
     sheperdName,
     sheperdNumber, 
     sheperdCampus,
     assignedHostel,
-}
-const handleSubmit = (event) => {
-  event.preventDefault();
-
+  }
+  
   try {
     const docRef = addDoc(collection(db, "sheperd"), sheperdDetails);
     console.log("Document written with ID: ", docRef.id);
-
-} catch (e) {
+    resetSheperdFields();
+  
+  } catch (e) {
     console.error("Error adding document: ", e);
+  }
+  
 }
-}
+
+
 
 const handleChange = (event) => {
   const { name, value } = event.target;
 
   setSheperd({ ...sheperd, [name]: value, });
+  console.log(sheperd)
 };
 
 
@@ -104,14 +114,14 @@ const handleChange = (event) => {
           <div className="left">
           </div>
           <div className="right">
-            <form>
+            <form onSubmit={handleSubmit}>
               {userInputs.map((input) => (
                 <div className="formInput" key={input.id}>
                   <label>{input.label}</label>
                   <input onChange={handleChange} type={input.type} placeholder={input.placeholder} name={input.name} value={input.value}/>
                 </div>
               ))}
-              <button onSubmit={handleSubmit}>Send</button>
+              <button type="submit" >Send</button>
             </form>
           </div>
         </div>

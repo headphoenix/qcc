@@ -2,14 +2,52 @@ import "./datatable.scss";
 import { DataGrid } from "@mui/x-data-grid";
 import { userColumns, userRows } from "../../datatablesource";
 import { Link } from "react-router-dom";
-import { useState, useContext } from "react";
 import { CampusContext } from "../../context/campus.context";
-import { getCampusDocuments } from '../../utils/firebase/firebase.utils'
+import { useState, useContext, useEffect } from "react";
+import { UserContext } from "../../context/user.context";
+import { db } from '../../utils/firebase/firebase.utils';
+import { getFirestore, collection, writeBatch, query, getDocs, querySnapshot, doc, onSnapshot } from "firebase/firestore";
+
+
+const columns = [
+  { field: 'id', headerName: 'ID', width: 100 },
+
+  {field: 'name', headerName: 'Name of Campus', width: 200},
+
+  {field: 'chief', headerName: 'Chief Elder', width: 200},
+
+  {field: 'hostels', headerName: 'Hostels', width: 200},
+  
+  {field: 'fellowships', headerName: 'Number of Fellowships', width: 200}
+]
 
 const Datatable = () => {
-  const { campusesMap } = useContext(CampusContext);
-  const [data, setData] = useState(Object.keys(campusesMap))
   
+  const [data, setData] = useState([]);
+
+  const  usersCollectionRef = collection(db, "campus")
+  
+
+  useEffect(() => {
+    const getCampusDocuments = async () => {
+      const querySnapshot = await getDocs(usersCollectionRef);
+
+      setData(querySnapshot.docs.map((doc)=>({...doc.data()})))
+    
+    }
+    getCampusDocuments();
+  }, [usersCollectionRef])
+  
+
+const rowData= data?.map(dat=>{
+  return {
+    name:dat?.name,
+    id:dat?.id,
+    chief:dat?.chief,
+    hostels:dat?.hostels,
+    fellowships:dat?.fellowships
+  }
+})
 
   const handleDelete = (id) => {
     setData(data.filter((item) => item.id !== id));
@@ -44,20 +82,15 @@ const Datatable = () => {
         <Link to="/campus/new-campus" className="link">
           Add New Campuses
         </Link>
-        {Object.keys(campusesMap).map((title) => {
-       return (
+        </div>
        <DataGrid
-        key={title.id}
         className="datagrid"
-        rows={title}
-        columns={campusesMap[title].concat(actionColumn)}
+        rows={data}
+        columns={columns.concat(actionColumn)}
         pageSize={9}
         rowsPerPageOptions={[9]}
         checkboxSelection
       />
-       )
-      })}
-      </div>
     </div>
   );
 };

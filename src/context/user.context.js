@@ -3,23 +3,13 @@ import { createContext, useState, useEffect } from 'react';
 import { getCategoriesAndDocuments, getMembersDocuments } from '../utils/firebase/firebase.utils'
 
 export const UserContext = createContext({
-  categoriesMap: {},
-  membersMap: {},
+  categoriesMap: [],
+  membersMap: [],
 });
 
 export const UserProvider = ({ children }) => {
-  const [categoriesMap, setCategoriesMap] = useState({});
-  const [membersMap, setMembersMap] = useState({});
-
-  useEffect(() => {
-    const getCategoriesMap = async () => {
-      const categoryMap = await getCategoriesAndDocuments();
-      setCategoriesMap(categoryMap);
-    };
-
-    getCategoriesMap();
-  }, []);
-
+  const [categoriesMap, setCategoriesMap] = useState([]);
+  const [membersMap, setMembersMap] = useState([]);
 
   useEffect(() => {
     const getMembersMap = async () => {
@@ -30,7 +20,7 @@ export const UserProvider = ({ children }) => {
     getMembersMap();
   }, []);
 
-  const value = { categoriesMap, membersMap };
+  const value = { categoriesMap, setCategoriesMap, membersMap };
   return (
     <UserContext.Provider value={value}>
       {children}

@@ -1,7 +1,7 @@
 import "./campus.scss"
 import Sidebar from "../../components/sidebar/Sidebar"
 import Navbar from "../../components/navbar/Navbar"
-import Datatable from "../../components/datatable-saturday/Datatable"
+import Datatable from "../../components/datatable-campus/Datatable"
 import List from "../../components/table/Table"
 
 const SaturdayService = () => {
@@ -11,7 +11,7 @@ const SaturdayService = () => {
     <div className="listContainer">
       <Navbar/>
       <Datatable />
-      {/* <List /> */}
+      <List /> 
     </div>
   </div> );
 }

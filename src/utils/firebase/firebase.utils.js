@@ -12,21 +12,7 @@ const firebaseConfig = {
   };
 
   const app = initializeApp(firebaseConfig);
-  export const db = getFirestore();
-
-  export const getCategoriesAndDocuments = async () => {
-    const collectionRef = collection(db, 'sheperd');
-    const q = query(collectionRef);
-
-    const querySnapshot = await getDocs(q);
-    const categoryMap = querySnapshot.docs.reduce((acc, docSnapshot) => {
-      const { title, items} = docSnapshot.data();
-      acc[title] = items;
-      return acc;
-    }, {});
-    
-    return categoryMap; 
-  }
+  export const db = getFirestore(app);
 
   export const getMembersDocuments = async () => {
     const collectionRef = collection(db, 'member');

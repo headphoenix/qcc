@@ -2,18 +2,53 @@ import "./datatable.scss";
 import { DataGrid } from "@mui/x-data-grid";
 import { userColumns, userRows } from "../../datatablesource";
 import { Link } from "react-router-dom";
-import { useState, useContext } from "react";
+import { useState, useContext, useEffect } from "react";
 import { UserContext } from "../../context/user.context";
-import { getCategoriesAndDocuments } from '../../utils/firebase/firebase.utils'
+import { db } from '../../utils/firebase/firebase.utils';
+import { getFirestore, collection, writeBatch, query, getDocs, querySnapshot, doc, onSnapshot } from "firebase/firestore";
+
+
+const columns = [
+  { field: 'id', headerName: 'ID', width: 100 },
+
+  {field: 'sheperdName', headerName: 'Name', width: 200},
+
+  {field: 'sheperdNumber', headerName: 'Number', width: 250},
+
+  {field: 'sheperdCampus', headerName: 'Campus', width: 250},
+  
+  {field: 'assignedHostel', headerName: 'AssignedHostel', width: 150}
+]
 
 const Datatable = () => {
-  const { categoriesMap } = useContext(UserContext);
-  const [data, setData] = useState(Object.keys(categoriesMap))
-  console.log(categoriesMap)
-  console.log(data)
-  console.log(Object.keys(categoriesMap))
+  const {categoriesMap, setCategoriesMap} = useContext(UserContext);
+ const  usersCollectionRef = collection(db, "sheperd")
+  
+    const [data, setData] = useState([]);
+
+  useEffect(() => {
+    const getCategoriesAndDocuments = async () => {
+      const querySnapshot = await getDocs(usersCollectionRef);
+
+      setData(querySnapshot.docs.map((doc)=>({...doc.data()})))
+    
+    }
+    getCategoriesAndDocuments();
+  }, [usersCollectionRef])
+  
+
+  const rowData= data?.map(dat=>{
+    return {
+      sheperdName:dat?.sheperdName,
+      id:dat?.id,
+      sheperdNumber:dat?.sheperdNumber,
+      sheperdCampus:dat?.sheperdCampus,
+      assignedHostel:dat?.assignedHostel
+    }
+  })
+
   const handleDelete = (id) => {
-    setData(data.filter((item) => item.id !== id));
+    // setData(data.filter((item) => item.id !== id));
   };
 
   const actionColumn = [
@@ -46,19 +81,14 @@ const Datatable = () => {
           Add New Sherperd
         </Link>
       </div>
-      {Object.keys(categoriesMap).map((title) => {
-       return (
        <DataGrid
-        key={title.id}
         className="datagrid"
-        rows={title}
-        columns={categoriesMap[title].concat(actionColumn)}
+        rows={rowData}
+        columns={columns.concat(actionColumn)}
         pageSize={9}
         rowsPerPageOptions={[9]}
         checkboxSelection
       />
-       )
-      })}
     </div>
   );
 };
