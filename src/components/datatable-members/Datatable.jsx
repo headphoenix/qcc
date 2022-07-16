@@ -3,11 +3,11 @@ import { DataGrid } from "@mui/x-data-grid";
 import { memberColumns, userRows } from "../../datatablesource";
 import { Link } from "react-router-dom";
 import { useState, useContext } from "react";
-import { UserContext } from "../../context/user.context";
+//import { UserContext } from "../../context/user.context";
 import { getMembersDocuments } from '../../utils/firebase/firebase.utils'
 
 const Datatable = () => {
-  const { membersMap } = useContext(UserContext);
+  //const { membersMap } = useContext(UserContext);
   const [data, setData] = useState(Object.keys(membersMap))
 
   const handleDelete = (id) => {

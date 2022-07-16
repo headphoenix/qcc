@@ -3,7 +3,7 @@ import Sidebar from "../../components/sidebar/Sidebar";
 import Navbar from "../../components/navbar/Navbar";
 import DriveFolderUploadOutlinedIcon from "@mui/icons-material/DriveFolderUploadOutlined";
 import { useState, useContext } from "react";
-import { UserContext } from "../../context/user.context";
+//import { UserContext } from "../../context/user.context";
 import { db } from "../../utils/firebase/firebase.utils";
 import { collection, addDoc, getDoc, admin } from "@firebase/firestore";
 import {nanoid} from 'nanoid';

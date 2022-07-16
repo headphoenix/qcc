@@ -3,7 +3,7 @@ import { DataGrid } from "@mui/x-data-grid";
 import { userColumns, userRows } from "../../datatablesource";
 import { Link } from "react-router-dom";
 import { useState, useContext, useEffect } from "react";
-import { UserContext } from "../../context/user.context";
+//import { UserContext } from "../../context/user.context";
 import { db } from '../../utils/firebase/firebase.utils';
 import { getFirestore, collection, writeBatch, query, getDocs, querySnapshot, doc, onSnapshot } from "firebase/firestore";
 
@@ -21,7 +21,7 @@ const columns = [
 ]
 
 const Datatable = () => {
-  const {categoriesMap, setCategoriesMap} = useContext(UserContext);
+  //const {categoriesMap, setCategoriesMap} = useContext(UserContext);
  const  usersCollectionRef = collection(db, "sheperd")
   
     const [data, setData] = useState([]);
