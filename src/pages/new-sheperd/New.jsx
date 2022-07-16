@@ -8,15 +8,23 @@ import { db } from "../../utils/firebase/firebase.utils";
 import { collection, addDoc, getDoc, admin } from "@firebase/firestore";
 import {nanoid} from 'nanoid';
 
-const defaultSheperdFields = {
-  id: nanoid(7),
-  sheperdName: "",
-  sheperdNumber: "",
-  sheperdCampus: "",
-  assignedHostel: "",
-};
+// const defaultSheperdFields = {
+//   id: nanoid(),
+//   sheperdName: "",
+//   sheperdNumber: "",
+//   sheperdCampus: "",
+//   assignedHostel: "",
+// };
 
 const NewSheperd = ({ title }) => {
+  const defaultSheperdFields = {
+    id: nanoid(),
+    sheperdName: "",
+    sheperdNumber: "",
+    sheperdCampus: "",
+    assignedHostel: "",
+  };
+  
   const [sheperd, setSheperd] = useState(defaultSheperdFields);
 
   const {id,

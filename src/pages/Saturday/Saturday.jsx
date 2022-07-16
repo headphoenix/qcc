@@ -11,7 +11,6 @@ const SaturdayService = () => {
     <div className="listContainer">
       <Navbar/>
       <Datatable />
-      <List />
     </div>
   </div> );
 }

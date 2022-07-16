@@ -13,6 +13,7 @@ import ListMembers from "./pages/list/ListMembers";
 import SaturdayService from "./pages/Saturday/Saturday";
 import ListCampuses from "./pages/list/ListCampuses"
 import NewCampus from "./pages/new-campus/New";
+import NewSaturday from "./pages/new-saturday/New";
 
 function App() {
   const { darkMode } = useContext(DarkModeContext);
@@ -50,11 +51,11 @@ function App() {
             </Route>
             <Route path="saturday">
               <Route index element={<SaturdayService />} />
-              {/* <Route path=":userId" element={<Single />} />
+              <Route path=":saturdayId" element={<Single />} />
               <Route
-                path="new-member"
-                element={<NewMember inputs={userInputs} />}
-              /> */}
+                path="new-service"
+                element={<NewSaturday title='Add Data for New Service' />}
+              />
             </Route>
           </Route>
         </Routes>

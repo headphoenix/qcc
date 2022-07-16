@@ -9,15 +9,23 @@ import { collection, addDoc, getDoc, admin } from "@firebase/firestore";
 import { nanoid } from "nanoid";
 
 
+// const defaultCampusFields = {
+//   id: nanoid(),
+//   name: "",
+//   chief: "",
+//   hostels: "",
+//   fellowships: "",
+// };
+
+const NewCampus = ({ title }) => {
+  
 const defaultCampusFields = {
-  id: nanoid(7),
+  id: nanoid(),
   name: "",
   chief: "",
   hostels: "",
   fellowships: "",
 };
-
-const NewCampus = ({ title }) => {
   const [campus, setCampus] = useState(defaultCampusFields);
 
   const {id,
