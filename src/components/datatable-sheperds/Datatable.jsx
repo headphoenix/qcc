@@ -21,7 +21,7 @@ const columns = [
 ]
 
 const Datatable = () => {
-  //const {categoriesMap, setCategoriesMap} = useContext(UserContext);
+
  const  usersCollectionRef = collection(db, "sheperd")
   
     const [data, setData] = useState([]);
@@ -36,7 +36,6 @@ const Datatable = () => {
     getCategoriesAndDocuments();
   }, [usersCollectionRef])
   
-
   const rowData= data?.map(dat=>{
     return {
       sheperdName:dat?.sheperdName,
