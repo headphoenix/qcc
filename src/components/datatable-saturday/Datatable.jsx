@@ -4,12 +4,18 @@ import { userColumns, userRows } from "../../datatablesource";
 import { Link } from "react-router-dom";
 import { useState } from "react";
 
+
 const Datatable = () => {
   const [data, setData] = useState(userRows);
 
-  const handleDelete = (id) => {
-    setData(data.filter((item) => item.id !== id));
-  };
+  // const handleDelete = (id) => {
+  //   setData(data.filter((item) => item.id !== id));
+  // };
+  
+  // const handleDelete = async (id) => {
+  //   const userDoc = doc(db, "users", id);
+  //   await deleteDoc(userDoc)
+  // }
 
   const actionColumn = [
     {
@@ -24,7 +30,7 @@ const Datatable = () => {
             </Link>
             <div
               className="deleteButton"
-              onClick={() => handleDelete(params.row.id)}
+              // onClick={() => handleDelete(params.row.id)}
             >
               Delete
             </div>

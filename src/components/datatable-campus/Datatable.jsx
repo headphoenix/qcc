@@ -6,7 +6,7 @@ import { CampusContext } from "../../context/campus.context";
 import { useState, useContext, useEffect } from "react";
 //import { UserContext } from "../../context/user.context";
 import { db } from '../../utils/firebase/firebase.utils';
-import { getFirestore, collection, writeBatch, query, getDocs, querySnapshot, doc, onSnapshot } from "firebase/firestore";
+import { getFirestore, collection, writeBatch, query, getDocs, querySnapshot, doc, onSnapshot, deleteDoc } from "firebase/firestore";
 
 
 const columns = [
@@ -26,6 +26,11 @@ const Datatable = () => {
   const [data, setData] = useState([]);
 
   const  usersCollectionRef = collection(db, "campus")
+
+  const handleDelete = async (id) => {
+    const userDoc = doc(db, "campus", id);
+    await deleteDoc(userDoc)
+  }  
   
 
   useEffect(() => {
@@ -49,9 +54,9 @@ const rowData= data?.map(dat=>{
   }
 })
 
-  const handleDelete = (id) => {
-    setData(data.filter((item) => item.id !== id));
-  };
+  // const handleDelete = (id) => {
+  //   setData(data.filter((item) => item.id !== id));
+  // };
 
   const actionColumn = [
     {
@@ -66,7 +71,7 @@ const rowData= data?.map(dat=>{
             </Link>
             <div
               className="deleteButton"
-              onClick={() => handleDelete(params.row.id)}
+              onClick={() => handleDelete()}
             >
               Delete
             </div>
