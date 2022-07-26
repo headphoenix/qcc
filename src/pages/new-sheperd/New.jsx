@@ -2,10 +2,10 @@ import "./new.scss";
 import Sidebar from "../../components/sidebar/Sidebar";
 import Navbar from "../../components/navbar/Navbar";
 import DriveFolderUploadOutlinedIcon from "@mui/icons-material/DriveFolderUploadOutlined";
-import { useState, useContext } from "react";
+import { useState, useContext, useEffect } from "react";
 //import { UserContext } from "../../context/user.context";
 import { db } from "../../utils/firebase/firebase.utils";
-import { collection, addDoc, getDoc, admin } from "@firebase/firestore";
+import { collection, addDoc, getDoc, admin, getDocs } from "@firebase/firestore";
 import {nanoid} from 'nanoid';
 
 // const defaultSheperdFields = {
@@ -26,6 +26,18 @@ const NewSheperd = ({ title }) => {
   };
   
   const [sheperd, setSheperd] = useState(defaultSheperdFields);
+
+  const  campusCollectionRef = collection(db, "campus")
+  const[campus, setCampus] = useState([])  
+
+useEffect(() => {
+  const getCampusDocuments = async () => {
+    const querySnapshot = await getDocs(campusCollectionRef);
+
+    setCampus(querySnapshot.docs.map((doc)=>({...doc.data()})))
+  }
+  getCampusDocuments();
+}, [])
 
   const {id,
          sheperdName,
@@ -52,14 +64,6 @@ const NewSheperd = ({ title }) => {
             value: sheperdNumber,
           },
           {
-            id: 3,
-            label: "Campus",
-            type: "text",
-            placeholder: "University of Ghana",
-            name:"sheperdCampus",
-            value: sheperdCampus,
-          },
-          {
             id: 4,
             label: " Assigned Hostel",
             type: "text",
@@ -68,6 +72,8 @@ const NewSheperd = ({ title }) => {
             value: assignedHostel,
           },
         ];
+
+        
 
   const usersCollectionRef = collection(db, "sheperd");
 
@@ -109,6 +115,16 @@ const handleChange = (event) => {
   console.log(sheperd)
 };
 
+const rowData = campus?.map(dat=>{
+  return {
+    name:dat?.name,
+     id:dat?.id,
+    // chief:dat?.chief,
+    // hostels:dat?.hostels,
+    // fellowships:dat?.fellowships
+  }
+})
+
 
   return (
     <div className="new">
@@ -129,6 +145,17 @@ const handleChange = (event) => {
                   <input onChange={handleChange} type={input.type} placeholder={input.placeholder} name={input.name} value={input.value}/>
                 </div>
               ))}
+             <div className="formInput" >
+              <label>Campus</label>
+              {/* <select className="formInput" onChange={handleChange} multiple={true} name={Object.keys(rowData)} value={Object.keys(rowData)}>
+                 <option>{Object.keys(rowData)}</option> 
+            </select> */}
+            <select className="formInput" onChange={handleChange}  name={sheperdCampus} value={sheperdCampus}>
+            {campus?.map((input) => 
+            <option key={input.id} name={sheperdCampus} value={input.name}>{input.name}</option>)}
+            </select>;
+
+            </div> 
               <button type="submit" >Send</button>
             </form>
           </div>

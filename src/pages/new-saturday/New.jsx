@@ -26,10 +26,10 @@ useEffect(() => {
   const getCampusDocuments = async () => {
     const querySnapshot = await getDocs(campusCollectionRef);
 
-    setCampus(querySnapshot.docs.map((doc)=>({...doc.data().name})))
+    setCampus(querySnapshot.docs.map((doc)=>({...doc.data()})))
   }
   getCampusDocuments();
-}, [campusCollectionRef])
+}, [])
 
 console.log(campus);
 
@@ -69,7 +69,7 @@ console.log(campus);
   ];
 
 
-  const usersCollectionRef = collection(db, "sheperd");
+  const usersCollectionRef = collection(db, "saturday");
 
 
 
@@ -131,7 +131,7 @@ console.log(campus);
               {campus.map((input) => (
                 <div className="formInput" key={input.id}>
                 <label>{input.name}</label>
-                <input onChange={handleChange} type="text" name={input.name} value={input.name} />
+                <input onChange={handleChange} type="text" name={input.name} value={input.value} />
               </div>
               ))}
               <button type="submit" >Send</button>

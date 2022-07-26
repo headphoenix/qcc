@@ -41,7 +41,7 @@ const Datatable = () => {
     
     }
     getCampusDocuments();
-  }, [usersCollectionRef])
+  }, [])
   
 
 const rowData= data?.map(dat=>{
