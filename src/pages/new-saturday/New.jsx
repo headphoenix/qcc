@@ -128,6 +128,7 @@ console.log(campus);
                   <input onChange={handleChange} type={input.type} placeholder={input.placeholder} name={input.name} value={input.value} />
                 </div>
               ))}
+              <h2>Attendance for Individual Campuses</h2>
               {campus.map((input) => (
                 <div className="formInput" key={input.id}>
                 <label>{input.name}</label>
