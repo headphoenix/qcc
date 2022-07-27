@@ -50,8 +50,14 @@ const Datatable = () => {
   //   // setData(data.filter((item) => item.id !== id));
   // };
 
-  const handleDelete = async (id) => {
-    const userDoc = doc(db, "campus", id);
+  // const handleDelete = async () => {
+  //   await deleteDoc(doc(db, "", props.users.id));
+  // };
+
+const dataID = data.id
+  
+const handleDelete = async (dataID) => {
+    const userDoc = doc(db, "campus", dataID);
     await deleteDoc(userDoc)
   }  
 
@@ -66,12 +72,9 @@ const Datatable = () => {
             <Link to="/users/test" style={{ textDecoration: "none" }}>
               <div className="viewButton">View</div>
             </Link>
-            <div
-              className="deleteButton"
-              onClick={() => handleDelete()}
-            >
-              Delete
-            </div>
+            <button onClick={handleDelete}>
+            <div className="deleteButton">Delete</div>
+            </button>
           </div>
         );
       },
