@@ -13,7 +13,7 @@ const columns = [
 
   {field: 'date', headerName: 'Date', width: 200},
 
-  {field: 'totalattendance', headerName: 'Total Attendance', width: 200},
+  {field: 'attendance', headerName: 'Total Attendance', width: 200},
 
   // {field: 'hostels', headerName: 'Hostels', width: 200},
   
@@ -39,7 +39,7 @@ const Datatable = () => {
     return {
       name:dat?.name,
       id:dat?.id,
-      totalattendance:dat?.totalattendance,
+      attendance:dat?.attendance,
       // hostels:dat?.hostels,
       // fellowships:dat?.fellowships
     }

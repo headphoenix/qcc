@@ -14,13 +14,14 @@ const defaultSaturdayFields = {
   id: nanoid(7),
   date: "",
   attendance: "",
-  campusAttendance: null,
+  campusAttendance: {}
 };
 
 const NewSaturday = ({ title }) => {
 
   const  campusCollectionRef = collection(db, "campus")
   const[campus, setCampus] = useState([])  
+  const [campusAttend, setCampusAttend] = useState([]);
  
 
 useEffect(() => {
@@ -53,20 +54,10 @@ useEffect(() => {
     {
       id: 2,
       label: " Total Attendance",
-      type: "text",
+      type: "number",
       name: "attendance",
       value: attendance,
     },
-  ];
-
-  const campusInputs = [
-    {
-      id: nanoid(7),
-      label: `${campus.name}`,
-      type: "text",
-      name: `${campus.name}`,
-      value: campus.name,
-    } 
   ];
 
 
@@ -101,19 +92,16 @@ useEffect(() => {
   }
 
 
-
-   
    const campusChange = (event) => {
     const { name, value } = event.target;
 
-    setSaturday({ ...saturday, [name]: value, });
-    console.log(saturday)
+    setCampusAttend({ ...campusAttend, [name]: value, });
+    console.log(campusAttend)
    }
 
   const handleChange = (event) => {
     const { name, value } = event.target;
-
-    setSaturday({ ...saturday, [name]: value, });
+    setSaturday({...saturday, [name]: value, campusAttendance: campusAttend, });
     console.log(saturday)
   };
 
@@ -141,7 +129,7 @@ useEffect(() => {
               {campus.map((input) => (
                 <div className="formInput" key={input.id}>
                 <label>{input.name}</label>
-                <input onChange={handleChange} type="text" name={input.name} value={input.value} />
+                <input onChange={campusChange} type="number" name={input.name} value={input.value} />
               </div>
               ))}
               <button type="submit" >Send</button>
