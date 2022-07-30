@@ -34,7 +34,7 @@ const Datatable = () => {
     
     }
     getCategoriesAndDocuments();
-  }, [usersCollectionRef])
+  }, [])
   
   const rowData= data?.map(dat=>{
     return {
@@ -57,7 +57,7 @@ const Datatable = () => {
 const dataID = data.id
   
 const handleDelete = async (dataID) => {
-    const userDoc = doc(db, "campus", dataID);
+    const userDoc = doc(db, "sheperd", dataID);
     await deleteDoc(userDoc)
   }  
 
