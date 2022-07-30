@@ -63,19 +63,14 @@ const rowData= data?.map(dat=>{
       field: "action",
       headerName: "Action",
       width: 200,
-      renderCell: (params) => {
+      renderCell: (data) => {
         return (
           <div className="cellAction">
             <Link to="/users/test" style={{ textDecoration: "none" }}>
               <div className="viewButton">View</div>
             </Link>
-            <div className="viewButton">View</div>
-            <div
-              className="deleteButton"
-              onClick={() => handleDelete()}
-            >
-              Delete
-            </div>
+            <div className="viewButton">Edit</div>
+            <div className="deleteButton" onClick={() => {handleDelete(data.id)}}>Delete</div>
           </div>
         );
       },

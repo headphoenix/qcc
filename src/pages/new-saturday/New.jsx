@@ -14,7 +14,7 @@ const defaultSaturdayFields = {
   id: nanoid(7),
   date: "",
   attendance: "",
-  campusAttendance: ''
+  campusAttendance: {},
 };
 
 const NewSaturday = ({ title }) => {
@@ -31,7 +31,7 @@ useEffect(() => {
   getCampusDocuments();
 }, [])
 
-console.log(campus);
+
 
   const [saturday, setSaturday] = useState(defaultSaturdayFields);
 
@@ -104,7 +104,7 @@ console.log(campus);
   const handleChange = (event) => {
     const { name, value } = event.target;
 
-    setSaturday({ ...saturday, [name]: value, });
+    setSaturday({ ...saturday, [name]: value, campusAttendance: {} });
     console.log(saturday)
   };
 
@@ -128,7 +128,7 @@ console.log(campus);
                   <input onChange={handleChange} type={input.type} placeholder={input.placeholder} name={input.name} value={input.value} />
                 </div>
               ))}
-              <h2>Attendance for Individual Campuses</h2>
+              <h2>Attendance for Individual Campuses</h2><br/>
               {campus.map((input) => (
                 <div className="formInput" key={input.id}>
                 <label>{input.name}</label>

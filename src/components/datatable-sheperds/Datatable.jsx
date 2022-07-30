@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 import { useState, useContext, useEffect } from "react";
 //import { UserContext } from "../../context/user.context";
 import { db } from '../../utils/firebase/firebase.utils';
-import { getFirestore, collection, writeBatch, query, getDocs, querySnapshot, doc, onSnapshot, deleteDoc } from "firebase/firestore";
+import { getFirestore, collection, query, getDocs, querySnapshot, doc, onSnapshot, deleteDoc } from "firebase/firestore";
 
 
 const columns = [
@@ -17,7 +17,8 @@ const columns = [
 
   {field: 'sheperdCampus', headerName: 'Campus', width: 250},
   
-  {field: 'assignedHostel', headerName: 'AssignedHostel', width: 150}
+  {field: 'assignedHostel', headerName: 'AssignedHostel', width: 150},
+
 ]
 
 const Datatable = () => {
@@ -26,16 +27,24 @@ const Datatable = () => {
   
     const [data, setData] = useState([]);
 
+    const handleDelete = async (id) => {
+      const userDoc = doc(db, "sheperd", id);
+      //await console.log(userDoc)
+     await deleteDoc(userDoc)
+    }  
+
+
   useEffect(() => {
     const getCategoriesAndDocuments = async () => {
       const querySnapshot = await getDocs(usersCollectionRef);
 
-      setData(querySnapshot.docs.map((doc)=>({...doc.data()})))
-    
+      setData(querySnapshot.docs.map((doc)=>({...doc.data(), id: doc.id  })))
     }
     getCategoriesAndDocuments();
   }, [])
   
+  console.log(data);
+
   const rowData= data?.map(dat=>{
     return {
       sheperdName:dat?.sheperdName,
@@ -54,28 +63,25 @@ const Datatable = () => {
   //   await deleteDoc(doc(db, "", props.users.id));
   // };
 
-const dataID = data.id;
-  
-const handleDelete = async (id) => {
-    const userDoc = doc(db, "sheperd", id);
-    await deleteDoc(userDoc)
-  }  
+// const dataID = data.id;
 
+
+   // const handleDelete = (id) => {
+  //   setData(data.filter((item) => item.id !== id));
+  // };
   const actionColumn = [
     {
       field: "action",
       headerName: "Action",
       width: 200,
-      renderCell: (params) => {
+      renderCell: (data) => {
         return (
           <div className="cellAction">
             <Link to="/users/test" style={{ textDecoration: "none" }}>
               <div className="viewButton">View</div>
             </Link>
-            <div className="viewButton">Edit</div>
-            <button onClick={handleDelete}>
-            <div className="deleteButton">Delete</div>
-            </button>
+            <div className="viewButton" style={{color: "yellow"}}>Edit</div>
+            <div className="deleteButton" onClick={() => {handleDelete(data.id)}}>Delete</div>
             
           </div>
         );
