@@ -37,7 +37,7 @@ const Datatable = () => {
     const getCampusDocuments = async () => {
       const querySnapshot = await getDocs(usersCollectionRef);
 
-      setData(querySnapshot.docs.map((doc)=>({...doc.data()})))
+      setData(querySnapshot.docs.map((doc)=>({...doc.data(), id: doc.id  })))
     
     }
     getCampusDocuments();

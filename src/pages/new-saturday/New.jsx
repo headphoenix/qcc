@@ -14,13 +14,14 @@ const defaultSaturdayFields = {
   id: nanoid(7),
   date: "",
   attendance: "",
-  campusAttendance: {},
+  campusAttendance: null,
 };
 
 const NewSaturday = ({ title }) => {
 
   const  campusCollectionRef = collection(db, "campus")
   const[campus, setCampus] = useState([])  
+ 
 
 useEffect(() => {
   const getCampusDocuments = async () => {
@@ -101,10 +102,18 @@ useEffect(() => {
 
 
 
+   
+   const campusChange = (event) => {
+    const { name, value } = event.target;
+
+    setSaturday({ ...saturday, [name]: value, });
+    console.log(saturday)
+   }
+
   const handleChange = (event) => {
     const { name, value } = event.target;
 
-    setSaturday({ ...saturday, [name]: value, campusAttendance: {} });
+    setSaturday({ ...saturday, [name]: value, });
     console.log(saturday)
   };
 
