@@ -69,6 +69,7 @@ const rowData= data?.map(dat=>{
             <Link to="/users/test" style={{ textDecoration: "none" }}>
               <div className="viewButton">View</div>
             </Link>
+            <div className="viewButton">View</div>
             <div
               className="deleteButton"
               onClick={() => handleDelete()}

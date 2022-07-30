@@ -54,10 +54,10 @@ const Datatable = () => {
   //   await deleteDoc(doc(db, "", props.users.id));
   // };
 
-const dataID = data.id
+const dataID = data.id;
   
-const handleDelete = async (dataID) => {
-    const userDoc = doc(db, "sheperd", dataID);
+const handleDelete = async (id) => {
+    const userDoc = doc(db, "sheperd", id);
     await deleteDoc(userDoc)
   }  
 
@@ -72,9 +72,11 @@ const handleDelete = async (dataID) => {
             <Link to="/users/test" style={{ textDecoration: "none" }}>
               <div className="viewButton">View</div>
             </Link>
+            <div className="viewButton">Edit</div>
             <button onClick={handleDelete}>
             <div className="deleteButton">Delete</div>
             </button>
+            
           </div>
         );
       },
