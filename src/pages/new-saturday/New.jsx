@@ -14,7 +14,9 @@ const defaultSaturdayFields = {
   id: nanoid(7),
   date: "",
   attendance: "",
-  campusAttendance: {}
+  campusAttendance: {},
+  firsttimers: "",
+  newconverts: ""
 };
 
 const NewSaturday = ({ title }) => {
@@ -41,6 +43,8 @@ useEffect(() => {
     date,
     attendance,
     campusAttendance,
+    firsttimers,
+    newconverts
   } = saturday;
 
   const saturdayInputs = [
@@ -57,6 +61,20 @@ useEffect(() => {
       type: "number",
       name: "attendance",
       value: attendance,
+    },
+    {
+      id: 2,
+      label: "First Timers",
+      type: "number",
+      name: "firsttimers",
+      value: firsttimers,
+    },
+    {
+      id: 2,
+      label: " New Converts",
+      type: "number",
+      name: "newconverts",
+      value: newconverts,
     },
   ];
 
@@ -78,6 +96,8 @@ useEffect(() => {
       date,
       attendance,
       campusAttendance,
+      firsttimers,
+    newconverts
     }
 
     try {

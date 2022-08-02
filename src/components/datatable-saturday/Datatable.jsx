@@ -15,9 +15,10 @@ const columns = [
 
   {field: 'attendance', headerName: 'Total Attendance', width: 200},
 
-  // {field: 'hostels', headerName: 'Hostels', width: 200},
-  
-  // {field: 'fellowships', headerName: 'Number of Fellowships', width: 200}
+  {field: 'firsttimers', headerName: 'First Timers', width: 200},
+
+  {field: 'newconverts', headerName: 'New Converts', width: 200},
+
 ]
 
 const Datatable = () => {
@@ -66,7 +67,7 @@ const Datatable = () => {
             <Link to="/users/test" style={{ textDecoration: "none" }}>
               <div className="viewButton">View</div>
             </Link>
-            <div className="viewButton">View</div>
+            <div className="viewButton">Edit</div>
             <div
               className="deleteButton"
               // onClick={() => handleDelete(params.row.id)}
@@ -78,6 +79,7 @@ const Datatable = () => {
       },
     },
   ];
+  
   return (
     <div className="datatable">
       <div className="datatableTitle">

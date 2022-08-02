@@ -10,28 +10,26 @@ import Button from 'react-bootstrap/Button';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
-import EditUser from "./EditUser";
+//import EditUser from "./EditUser";
 
 const columns = [
   { field: 'id', headerName: 'ID', width: 100 },
 
-  { field: 'name', headerName: 'Name of Campus', width: 200 },
+  { field: 'name', headerName: 'Name of Baconta', width: 200 },
 
-  { field: 'chief', headerName: 'Chief Elder', width: 200 },
+  { field: 'sheperd', headerName: 'Sheperd', width: 200 },
 
-  { field: 'hostels', headerName: 'Hostels', width: 200 },
-
-  { field: 'fellowships', headerName: 'Number of Fellowships', width: 200 }
+  { field: 'numberofmembers', headerName: 'Number of Members', width: 200 }
 ]
 
 const Datatable = (id) => {
 
   const [data, setData] = useState([]);
 
-  const usersCollectionRef = collection(db, "campus")
+  const usersCollectionRef = collection(db, "baconta")
 
   const handleDelete = async (id) => {
-    const userDoc = doc(db, "campus", id);
+    const userDoc = doc(db, "baconta", id);
     await deleteDoc(userDoc)
   }
 
@@ -52,9 +50,8 @@ const Datatable = (id) => {
     return {
       name: dat?.name,
       id: dat?.id,
-      chief: dat?.chief,
-      hostels: dat?.hostels,
-      fellowships: dat?.fellowships
+      sheperd: dat?.sheperd,
+      numberofmembers: dat?.numberofmembers,
     }
   })
 
@@ -93,7 +90,7 @@ const Datatable = (id) => {
             <Typography id="modal-modal-title" variant="h6" component="h2">
              Edit campus Information
             </Typography>
-            <EditUser campuses={data} />
+            {/* <EditUser campuses={data} /> */}
           </Box>
         </Modal>
       </div>
@@ -120,9 +117,9 @@ const Datatable = (id) => {
     <>
       <div className="datatable">
         <div className="datatableTitle">
-          Campuses
-          <Link to="/campus/new-campus" className="link">
-            Add New Campuses
+          Bacontas
+          <Link to="/bacontas/new-baconta" className="link">
+            Add New Baconta
           </Link>
         </div>
         <DataGrid

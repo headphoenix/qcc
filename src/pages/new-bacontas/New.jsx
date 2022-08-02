@@ -17,31 +17,29 @@ import { nanoid } from "nanoid";
 //   fellowships: "",
 // };
 
-const NewCampus = ({ title }) => {
+const NewBacontas = ({ title }) => {
   
-const defaultCampusFields = {
+const defaultBacontaFields = {
   id: nanoid(),
   name: "",
-  chief: "",
-  hostels: "",
-  fellowships: "",
+  sheperd: "",
+  numberofmembers: "",
 };
 
 
-  const [campus, setCampus] = useState(defaultCampusFields);
+  const [baconta, setBaconta] = useState(defaultBacontaFields);
 
   const {id,
     name,
-    chief,
-    hostels,
-    fellowships,
-    } = campus;
+    sheperd,
+    numberofmembers,
+    } = baconta;
 
 
-    const campusInputs = [
+    const bacontaInputs = [
       {
         id: 1,
-        label: "Name of Campus",
+        label: "Name of Baconta",
         type: "text",
         name:"name",
         value: name,
@@ -49,49 +47,41 @@ const defaultCampusFields = {
       },
       {
         id: 2,
-        label: "Chief Elder",
+        label: "Baconta Sheperd",
         type: "text",
-        name:"chief",
-        value: chief,
+        name:"sheperd",
+        value: sheperd,
       },
       {
         id: 3,
-        label: "Number of Hostels",
-        type: "text",
-        name:"hostels",
-        value: hostels,
-      },
-      {
-        id: 4,
-        label: "Number of Fellowships",
+        label: "Number of Members",
         type: "number",
-        name:"fellowships",
-        value: fellowships,
+        name:"numberofmembers",
+        value: numberofmembers,
       },
     ];
 
-const usersCollectionRef = collection(db, "campus");
+const usersCollectionRef = collection(db, "baconta");
 
-const resetCampusFields = () => {
-  setCampus(defaultCampusFields);
+const resetBacontaFields = () => {
+  setBaconta(defaultBacontaFields);
   };
 
   
   const handleSubmit = (event) => {
     event.preventDefault();
     
-    const campusDetails = {
+    const bacontaDetails = {
       id,
       name,
-      chief,
-      hostels,
-      fellowships,
+      sheperd,
+      numberofmembers,
     }
     
     try {
-      const docRef = addDoc(collection(db, "campus"), campusDetails);
+      const docRef = addDoc(collection(db, "baconta"), bacontaDetails);
       console.log("Document written with ID: ", docRef.id);
-      resetCampusFields();
+      resetBacontaFields();
     
     } catch (e) {
       console.error("Error adding document: ", e);
@@ -102,8 +92,7 @@ const resetCampusFields = () => {
 const handleChange = (event) => {
 const { name, value } = event.target;
 
-setCampus({ ...campus, [name]: value, });
-console.log(campus)
+setBaconta({ ...baconta, [name]: value, });
 };
 
 
@@ -119,7 +108,7 @@ console.log(campus)
         <div className="bottom">
           <div className="right">
             <form onSubmit={handleSubmit}>
-              {campusInputs.map((input) => (
+              {bacontaInputs.map((input) => (
                 <div className="formInput" key={input.id}>
                   <label>{input.label}</label>
                   <input type={input.type} name={input.name} value={input.value} onChange={handleChange} />
@@ -134,4 +123,4 @@ console.log(campus)
   );
 };
 
-export default NewCampus;
+export default NewBacontas;
