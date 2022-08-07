@@ -1,6 +1,7 @@
 import "../../pages/new-campus/new.scss";
 import { useState } from "react";
-
+import { doc, setDoc } from "firebase/firestore"; 
+import { db } from "../../utils/firebase/firebase.utils"; 
 
 
 
@@ -10,11 +11,11 @@ const EditUser = ({campuses}) => {
   console.log(campuses)
 
     const defaultCampusFields = {
-        id: campuses.id,
-        name: campuses.name,
-        chief: campuses.chief,
-        hostels: campuses.hostels,
-        fellowships: campuses.fellowships
+        id: campuses.row.id,
+        name: campuses.row.name,
+        chief: campuses.row.chief,
+        hostels: campuses.row.hostels,
+        fellowships: campuses.row.fellowships
       };
 
 
@@ -30,6 +31,16 @@ const EditUser = ({campuses}) => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+
+        const updatedUser = {
+
+        }
+        await setDoc(doc(db, "campus", campuses.id), {
+          name: "Los Angeles",
+          state: "CA",
+          country: "USA"
+        });
+        
     }
 
 

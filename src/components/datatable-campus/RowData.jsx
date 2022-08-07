@@ -52,7 +52,7 @@ const RowData = ({data}) => {
         <Typography id="modal-modal-title" variant="h6" component="h2">
          Edit campus Information
         </Typography>
-        <EditUser campuses={data.row} />
+        <EditUser campuses={data} />
       </Box>
     </Modal>
         
