@@ -6,7 +6,7 @@ import { useState, useContext, useEffect } from "react";
 //import { UserContext } from "../../context/user.context";
 import { db } from '../../utils/firebase/firebase.utils';
 import { getFirestore, collection, query, getDocs, querySnapshot, doc, onSnapshot, deleteDoc } from "firebase/firestore";
-
+import RowData from "./RowData";
 
 const columns = [
   { field: 'id', headerName: 'ID', width: 100 },
@@ -76,14 +76,7 @@ const Datatable = () => {
       width: 200,
       renderCell: (data) => {
         return (
-          <div className="cellAction">
-            <Link to="/users/test" style={{ textDecoration: "none" }}>
-              <div className="viewButton">View</div>
-            </Link>
-            <div className="viewButton" style={{color: "yellow"}}>Edit</div>
-            <div className="deleteButton" onClick={() => {handleDelete(data.id)}}>Delete</div>
-            
-          </div>
+         <RowData data={data}/>
         );
       },
     },

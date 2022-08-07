@@ -7,10 +7,7 @@ import { useState, useContext, useEffect } from "react";
 import { db } from '../../utils/firebase/firebase.utils';
 import { getFirestore, collection, writeBatch, query, getDocs, querySnapshot, doc, onSnapshot, deleteDoc } from "firebase/firestore";
 import Button from 'react-bootstrap/Button';
-import Box from '@mui/material/Box';
-import Typography from '@mui/material/Typography';
-import Modal from '@mui/material/Modal';
-import EditUser from "./EditUser";
+import RowData from "./RowData";
 
 const columns = [
   { field: 'id', headerName: 'ID', width: 100 },
@@ -24,16 +21,13 @@ const columns = [
   { field: 'fellowships', headerName: 'Number of Fellowships', width: 200 }
 ]
 
-const Datatable = (id) => {
-
+const Datatable = (props) => {
+console.log(props)
   const [data, setData] = useState([]);
 
   const usersCollectionRef = collection(db, "campus")
 
-  const handleDelete = async (id) => {
-    const userDoc = doc(db, "campus", id);
-    await deleteDoc(userDoc)
-  }
+
 
 
   useEffect(() => {
@@ -46,7 +40,7 @@ const Datatable = (id) => {
     getCampusDocuments();
   }, [])
 
-  console.log(data)
+  //console.log(data)
 
   const rowData = data?.map(dat => {
     return {
@@ -61,12 +55,17 @@ const Datatable = (id) => {
   const [open, setOpen] = useState(false);
   const [partData, setPartData] = useState([])
 
-  const handleOpen = async (id) => {
-    setOpen(true)
-  };
+  
 
- 
-  const handleClose = () => setOpen(false);
+  
+
+  const [dataSpec, setDataSpec] = useState([])
+  
+  const takeData = (id) => {
+    if (data.id === id) {
+      setDataSpec()
+    }
+  }
 
   const actionColumn = [
     {
@@ -74,46 +73,15 @@ const Datatable = (id) => {
       headerName: "Action",
       width: 200,
       renderCell: (data) => {
+      //  console.log(data)
         return (
-          <div className="cellAction">
-            <Link to="/users/test" style={{ textDecoration: "none" }} >
-              <div className="viewButton">View</div>
-            </Link>
-            <div className="viewButton" onClick={() => { handleOpen(data.id) } }>Edit</div>
-            <div className="deleteButton" onClick={() => { handleDelete(data.id) }}>Delete</div>
-            <div>
-        <Modal
-          open={open}
-          onClose={handleClose}
-          aria-labelledby="modal-modal-title"
-          aria-describedby="modal-modal-description"
-          disableEnforceFocus
-        >
-          <Box sx={style}>
-            <Typography id="modal-modal-title" variant="h6" component="h2">
-             Edit campus Information
-            </Typography>
-            <EditUser campuses={data} />
-          </Box>
-        </Modal>
-      </div>
-          </div>
+         <RowData data={data}/>
         );
       },
     },
   ];
 
-  const style = {
-    position: 'absolute',
-    top: '50%',
-    left: '50%',
-    transform: 'translate(-50%, -50%)',
-    width: 400,
-    bgcolor: 'background.paper',
-    border: '2px solid #000',
-    boxShadow: 24,
-    p: 4,
-  };
+  
 
 
   return (

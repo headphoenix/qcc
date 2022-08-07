@@ -19,9 +19,29 @@ import ListCampuses from "./pages/list/ListCampuses"
 import NewCampus from "./pages/new-campus/New";
 import NewSaturday from "./pages/new-saturday/New";
 import SingleBacontas from "./pages/single-baconta/Single"
+import {db} from './utils/firebase/firebase.utils'
+import { getFirestore, collection, writeBatch, query, getDocs, querySnapshot, doc, onSnapshot, deleteDoc } from "firebase/firestore";
+import { useEffect, useState} from "react"
 
 function App() {
   const { darkMode } = useContext(DarkModeContext);
+
+  const [data, setData] = useState([]);
+
+  const usersCollectionRef = collection(db, "campus")
+
+
+
+
+  useEffect(() => {
+    const getCampusDocuments = async () => {
+      const querySnapshot = await getDocs(usersCollectionRef);
+
+      setData(querySnapshot.docs.map((doc) => ({ ...doc.data(), id: doc.id })))
+
+    }
+    getCampusDocuments();
+  }, [])
 
   return (
     <div className={darkMode ? "app dark" : "app"}>
@@ -30,7 +50,7 @@ function App() {
           <Route path="/">
             <Route index element={<Home />} />
             <Route path="login" element={<Login />} />
-            <Route path="users">
+            <Route path="sheperds">
               <Route index element={<ListSheperds />} />
               <Route path=":userId" element={<SingleSheperd />} />
               <Route
@@ -46,9 +66,9 @@ function App() {
                 element={<NewMember title='Add New Campus'/>}
               />
             </Route>
-            <Route path="campus">
+            <Route path="campuses">
               <Route index element={<ListCampuses />} />
-              <Route path=":campusId" element={<SingleCampus />} />
+              <Route path="campus" element={<SingleCampus data={data}/>} />
               <Route
                 path="new-campus"
                 element={<NewCampus title="Add New Campus" />}

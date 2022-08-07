@@ -7,6 +7,8 @@ import { useState } from "react";
 
 const EditUser = ({campuses}) => {
 
+  console.log(campuses)
+
     const defaultCampusFields = {
         id: campuses.id,
         name: campuses.name,
@@ -78,7 +80,7 @@ const EditUser = ({campuses}) => {
               {campusInputs.map((input) => (
                 <div className="formInput" key={input.id}>
                   <label>{input.label}</label>
-                  <input type={input.type} name={input.name} value={input.value} onChange={handleChange} />
+                  <input name={input.name} type={input.type} value={input.value} onChange={handleChange} />
                 </div>
               ))}
               <button type="submit">Submit</button>

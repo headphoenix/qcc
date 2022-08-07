@@ -21,7 +21,7 @@ const SingleSheperd = () => {
                 className="itemImg"
               />
               <div className="details">
-                <h1 className="itemTitle">Jonathan Papoe</h1>
+                <h1 className="itemTitle">JonaPapoe</h1>
                 <div className="detailItem">
                   <span className="itemKey">Baconta Leader:</span>
                   <span className="itemValue">Choir</span>
