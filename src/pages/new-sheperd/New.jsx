@@ -150,11 +150,11 @@ const NewSheperd = ({ title }) => {
               ))}
               <div className="formInput" >
                 <label>Campus</label>
-
-                <select className="formInput" onChange={handleChange} name={sheperdCampus} value={sheperdCampus}>
+                <select className="formInput" onChange={handleChange} name='sheperdCampus' value={sheperdCampus}>
                   {campus?.map((input) =>
-                    <option key={input.id} name={sheperdCampus} value={input.name}>{input.name}</option>)}
-                </select>;
+                    <option key={input.id} value={input.name}>{input.name}</option>
+                    )};
+                  </select>
               </div>
               <button type="submit" >Send</button>
             </form>

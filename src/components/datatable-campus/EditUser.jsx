@@ -33,7 +33,11 @@ const EditUser = ({campuses}) => {
         e.preventDefault();
 
         const updatedUser = {
-
+          id: id,
+          name: name,
+          chief: chief,
+          hostels: hostels,
+          fellowships: fellowships,
         }
         await setDoc(doc(db, "campus", campuses.id), {
           name: "Los Angeles",
