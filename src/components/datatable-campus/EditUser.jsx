@@ -1,9 +1,7 @@
 import "../../pages/new-campus/new.scss";
 import { useState } from "react";
-import { doc, setDoc } from "firebase/firestore"; 
+import { doc, updateDoc, collection, setDoc } from "firebase/firestore"; 
 import { db } from "../../utils/firebase/firebase.utils"; 
-
-
 
 
 const EditUser = ({campuses}) => {
@@ -28,6 +26,7 @@ const EditUser = ({campuses}) => {
         fellowships,
         } = campus;
 
+        const campusRef = collection(db, 'campus')
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -39,12 +38,7 @@ const EditUser = ({campuses}) => {
           hostels: hostels,
           fellowships: fellowships,
         }
-        await setDoc(doc(db, "campus", campuses.id), {
-          name: "Los Angeles",
-          state: "CA",
-          country: "USA"
-        });
-        
+        await setDoc(doc(db, "campus", campuses.id), updatedUser);
     }
 
 

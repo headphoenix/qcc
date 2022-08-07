@@ -89,7 +89,7 @@ console.log(props)
       <div className="datatable">
         <div className="datatableTitle">
           Campuses
-          <Link to="/campus/new-campus" className="link">
+          <Link to="/campuses/new-campus" className="link">
             Add New Campuses
           </Link>
         </div>

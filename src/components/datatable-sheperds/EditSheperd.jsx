@@ -1,7 +1,8 @@
 import "../../pages/new-campus/new.scss";
 import { useState, useEffect } from "react";
 import { collection, getDocs,} from "firebase/firestore";
-import { db } from '../../utils/firebase/firebase.utils'
+import { doc, updateDoc, setDoc } from "firebase/firestore"; 
+import { db } from "../../utils/firebase/firebase.utils"; 
 
 
 const EditSheperd = ({sheperds}) => {
@@ -40,6 +41,15 @@ const EditSheperd = ({sheperds}) => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+
+        const updatedSheperd = {
+          id: id,
+          sheperdName: sheperdName,
+          sheperdNumber: sheperdNumber,
+          sheperdCampus: sheperdCampus,
+          assignedHostel: assignedHostel,
+        }
+        await setDoc(doc(db, "sheperd", sheperds.id), updatedSheperd);
     }
 
 
