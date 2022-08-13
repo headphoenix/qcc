@@ -8,11 +8,11 @@ import { db } from "../../utils/firebase/firebase.utils";
 const EditSheperd = ({sheperds}) => {
 
       const defaultSheperdFields = {
-        id: sheperds.id,
-        sheperdName: sheperds.sheperdName,
-        sheperdNumber: sheperds.sheperdNumber,
-        sheperdCampus: sheperds.sheperdCampus,
-        assignedHostel: sheperds.assignedHostel,
+        id: sheperds.row.id,
+        sheperdName: sheperds.row.sheperdName,
+        sheperdNumber: sheperds.row.sheperdNumber,
+        sheperdCampus: sheperds.row.sheperdCampus,
+        assignedHostel: sheperds.row.assignedHostel,
       };
 
       const campusCollectionRef = collection(db, "campus")

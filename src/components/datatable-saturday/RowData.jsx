@@ -1,7 +1,7 @@
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
-import EditSheperd from "./EditSheperd";
+import EditSaturday from "./EditSaturday";
 import { Link } from "react-router-dom";
 import { getFirestore, collection, writeBatch, query, getDocs, querySnapshot, doc, onSnapshot, deleteDoc } from "firebase/firestore";
 import { db } from '../../utils/firebase/firebase.utils';
@@ -32,13 +32,17 @@ console.log(data)
   const handleClose = () => setOpen(false);
 
     return ( 
-        <div className="cellAction">
-        <Link to="/sheperds/sheperd" state={data.row} style={{ textDecoration: "none" }} >
-          <div className="viewButton"  >View</div>
-        </Link>
-        <div className="viewButton" style={{color: "yellow"}} onClick={() => {handleOpen()}}>Edit</div>
-        <div className="deleteButton" onClick={() => { handleDelete(data.id) }}>Delete</div>   
-        
+           <div className="cellAction">
+            <Link to="/users/test" style={{ textDecoration: "none" }}>
+              <div className="viewButton">View</div>
+            </Link>
+            <div className="viewButton" style={{color: "yellow"}} onClick={() => {handleOpen()}}>Edit</div>
+            <div
+              className="deleteButton"
+              onClick={() => { handleDelete(data.id) }}
+            >
+              Delete
+            </div>
         <Modal
       open={open}
       onClose={handleClose}
@@ -49,7 +53,7 @@ console.log(data)
         <Typography id="modal-modal-title" variant="h6" component="h2">
          Edit sheperd Information
         </Typography>
-        <EditSheperd sheperds={data.row} />
+        <EditSaturday saturdays={data.row} />
       </Box>
     </Modal>
     <div>

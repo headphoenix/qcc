@@ -35,7 +35,7 @@ const RowData = ({data}) => {
       
     return ( 
         <div className="cellAction">
-        <Link to="/campuses/campus" style={{ textDecoration: "none" }} >
+        <Link to="/campuses/campus" state={data.row} style={{ textDecoration: "none" }} >
           <div className="viewButton">View</div>
         </Link>
         <div className="viewButton" onClick={() => {handleOpen()}}>Edit </div>

@@ -22,6 +22,7 @@ import SingleBacontas from "./pages/single-baconta/Single"
 import {db} from './utils/firebase/firebase.utils'
 import { getFirestore, collection, writeBatch, query, getDocs, querySnapshot, doc, onSnapshot, deleteDoc } from "firebase/firestore";
 import { useEffect, useState} from "react"
+import ListFellowships from "./pages/list/ListFellowships";
 
 function App() {
   const { darkMode } = useContext(DarkModeContext);
@@ -68,7 +69,7 @@ function App() {
             </Route>
             <Route path="campuses">
               <Route index element={<ListCampuses />} />
-              <Route path="campus" element={<SingleCampus data={data}/>} />
+              <Route path="campus" element={<SingleCampus />} />
               <Route
                 path="new-campus"
                 element={<NewCampus title="Add New Campus" />}
@@ -89,6 +90,14 @@ function App() {
                 path="new-service"
                 element={<NewSaturday title='Add Data for New Service' />}
               />
+            </Route>
+            <Route path="fellowships">
+              <Route index element={<ListFellowships />} />
+              {/* <Route path=":saturdayId" element={<SingleSaturday />} />
+              <Route
+                path="new-service"
+                element={<NewSaturday title='Add Data for New Service' />}
+              /> */}
             </Route>
           </Route>
         </Routes>

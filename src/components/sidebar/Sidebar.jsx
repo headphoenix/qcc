@@ -66,7 +66,7 @@ const Sidebar = () => {
             <span>Saturday Service</span>
           </li>
           </Link>
-          <Link to='/fellowship' style={{ textDecoration: "none" }} >
+          <Link to='/fellowships' style={{ textDecoration: "none" }} >
           <li>
             <LocalShippingIcon className="icon" />
             <span>Fellowship</span>
